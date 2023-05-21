@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import logoImg from '../../public/logo.svg';
 import styles from '../../styles/home.module.scss';
 
+import logoImg from '../../public/logo.svg';
+
+import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 
 export default function Home() {
@@ -25,6 +27,13 @@ export default function Home() {
             placeholder="Sua senha"
             type="password"
           />
+          
+          <Button
+            type="submit"
+            loading={false}
+          >
+            Cadastrar
+          </Button>
 
         </form>
       </div>
