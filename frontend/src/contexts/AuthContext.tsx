@@ -29,7 +29,7 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function signOut(){
   try{
-    destroyCookie(undefined, '@sujeitopizzaria.stoken')
+    destroyCookie(undefined, '@sujeitopizza.stoken')
     Router.push('/')
   }catch{
     console.log('Error in signout')
