@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useState } from 'react';
 
 type AuthContextData = {
-  user: UserProps | undefined;
+  user: UserProps;
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
 }
