@@ -5,7 +5,6 @@ import { api } from '../services/apiClient';
 import { destroyCookie, setCookie, parseCookies } from 'nookies'
 import Router from 'next/router';
 
-
 type AuthContextData = {
   user: UserProps | undefined;
   isAuthenticated: boolean;
@@ -83,7 +82,6 @@ export function AuthProvider({ children }: AuthProviderProps){
       console.log("ERRO AO ACESSAR ", err)
     }
   }
-
 
   async function signUp({ name, email, password}: SignUpProps){
     try{
