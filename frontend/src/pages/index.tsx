@@ -1,18 +1,20 @@
-import { FormEvent, useContext, useState } from 'react';
+import { useContext, FormEvent, useState } from 'react'
 
-import Head from 'next/head';
+import Head from 'next/head'
 import Image from 'next/image';
 import styles from '../../styles/home.module.scss';
 
 import logoImg from '../../public/logo.svg';
 
-import { Button } from '../components/ui/Button';
-import { Input } from '../components/ui/Input';
+import { Input } from '../components/ui/Input'
+import { Button } from '../components/ui/Button'
 import { toast } from 'react-toastify'
 
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext'
 
 import Link from 'next/link';
+
+import { canSSRGuest } from '../utils/canSSRGuest'
 
 export default function Home() {
   const { signIn } = useContext(AuthContext)
@@ -68,7 +70,7 @@ export default function Home() {
           
           <Button
             type="submit"
-            loading={false}
+            loading={loading}
           >
             Acessar
           </Button>
@@ -83,3 +85,10 @@ export default function Home() {
     </>
   )
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  
+  return {
+    props: {}
+  }
+})
