@@ -8,6 +8,7 @@ import logoImg from '../../public/logo.svg';
 
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
+import { toast } from 'react-toastify'
 
 import { AuthContext } from '../contexts/AuthContext';
 
@@ -24,12 +25,21 @@ export default function Home() {
   async function handleLogin(event: FormEvent){
     event.preventDefault();
 
+    if(email === '' || password === ''){
+      toast.error("Preencha os campos")
+      return;
+    }
+
+    setLoading(true);
+
     let data = {
       email,
       password
     }
 
     await signIn(data)
+
+    setLoading(false);
   }
 
   return (
