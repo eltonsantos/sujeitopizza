@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { FiLogOut } from 'react-icons/fi'
 
 import { AuthContext } from '../../contexts/AuthContext'
+import Image from 'next/image'
+import logoImg from '../../../public/logo.svg';
 
 export function Header(){
 
@@ -14,7 +16,7 @@ export function Header(){
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
         <Link href="/dashboard" legacyBehavior>
-          <img src="/logo.svg" width={190} height={60} />
+          <Image src={logoImg} alt="Logo Sujeito Pizza" width={190} height={60} />
         </Link>
 
         <nav className={styles.menuNav}>
