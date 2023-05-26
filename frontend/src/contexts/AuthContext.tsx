@@ -38,7 +38,6 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({} as AuthContextData)
 
-
 export function signOut(){
   try{
     destroyCookie(undefined, '@sujeitopizza.token')
@@ -104,7 +103,6 @@ export function AuthProvider({ children }: AuthProviderProps){
 
       //Redirecionar o user para /dashboard
       Router.push('/dashboard')
-
 
     }catch(err){
       toast.error("Erro ao acessar!")
