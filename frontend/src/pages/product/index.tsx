@@ -7,10 +7,23 @@ import { canSSRAuth } from '../../utils/canSSRAuth'
 
 import { FiUpload } from 'react-icons/fi'
 
-export default function Product(){
+import { setupAPIClient } from '../../services/api'
+
+type ItemProps = {
+  id: string;
+  name: string;
+}
+
+interface CategoryProps {
+  categoryList: ItemProps[];
+}
+
+export default function Product({ categoryList }: CategoryProps){
 
   const [avatarUrl, setAvatarUrl] = useState('');
   const [imageAvatar, setImageAvatar] = useState(null);
+  const [categories, setCategories] = useState(categoryList || [])
+  const [categorySelected, setCategorySelected] = useState(0)
 
   function handleFile(e: ChangeEvent<HTMLInputElement>){
 
@@ -25,11 +38,18 @@ export default function Product(){
     }
 
     if(image.type === 'image/jpeg' || image.type === 'image/png'){
-
       setImageAvatar(image);
       setAvatarUrl(URL.createObjectURL(e.target.files[0]))
-
     }
+
+  }
+
+  //Quando você seleciona uma nova categoria na lista
+  function handleChangeCategory(event){
+    // console.log("POSICAO DA CATEGORIA SELECIONADA ", event.target.value)
+    //console.log('Categoria selecionada ', categories[event.target.value])
+
+    setCategorySelected(event.target.value)
 
   }
 
@@ -65,25 +85,26 @@ export default function Product(){
 
             </label>
 
-            <select>
-              <option>
-                Bebida
-              </option>
-              <option>
-                Pizzas
-              </option>
+            <select value={categorySelected} onChange={handleChangeCategory} >
+              {categories.map( (item, index) => {
+                return(
+                  <option key={item.id} value={index}>
+                    {item.name}
+                  </option>
+                )
+              })}
             </select>
 
             <input 
-            type="text"
-            placeholder="Digite o nome do produto"
-            className={styles.input}
+              type="text"
+              placeholder="Digite o nome do produto"
+              className={styles.input}
             />
 
             <input 
-            type="text"
-            placeholder="Preço do produto"
-            className={styles.input}
+              type="text"
+              placeholder="Preço do produto"
+              className={styles.input}
             />      
 
             <textarea 
@@ -105,8 +126,14 @@ export default function Product(){
 }
 
 export const getServerSideProps = canSSRAuth(async (ctx) => {
+  const apliClient = setupAPIClient(ctx)
+
+  const response = await apliClient.get('/category');
+  //console.log(response.data);
 
   return {
-    props: {}
+    props: {
+      categoryList: response.data
+    }
   }
 })
