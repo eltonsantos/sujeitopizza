@@ -4,4 +4,4 @@ const api = axios.create({
   baseURL: 'http://192.168.18.3:3333'
 })
 
-export { api };
+export { api }
