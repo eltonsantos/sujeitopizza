@@ -1,9 +1,19 @@
-import React, { useState }  from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, TextInput, StyleSheet} from 'react-native'
+import React, { useContext, useState }  from 'react';
+import { View, Text, SafeAreaView, TouchableOpacity, TextInput, StyleSheet, Button} from 'react-native'
+
+import { AuthContext } from "../../contexts/AuthContext" 
 
 export default function Dashboard(){
+
+  const { signOut } = useContext(AuthContext)
+
   return(
     <SafeAreaView style={styles.container}>
+
+        <Button
+          title='Sair do app'
+          onPress={signOut}
+        />
         
         <Text style={styles.title}>Novo pedido</Text>
 
