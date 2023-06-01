@@ -210,7 +210,6 @@ export default function Order(){
         </TouchableOpacity>
       </View>
 
-
       <FlatList
         showsVerticalScrollIndicator={false}
         style={{ flex: 1, marginTop: 24 }}
