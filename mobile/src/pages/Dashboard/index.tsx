@@ -1,11 +1,13 @@
 import React, { useContext, useState }  from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, TextInput, StyleSheet, Button} from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, TextInput, StyleSheet, Button, GestureResponderEvent} from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
-import { AuthContext } from "../../contexts/AuthContext" 
-
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { StackPramsList } from '../../routes/app.routes'
+
+import { AuthContext } from "../../contexts/AuthContext" 
+
+import { api } from '../../services/api'
 
 export default function Dashboard(){
 
@@ -18,10 +20,21 @@ export default function Dashboard(){
       return;
     }
 
-    //precisa fazer a requisiçao e abrir a mesa e navegar pra proxima tela.
-    navigation.navigate('Order', { number: number, order_id: '9557defc-bbd7-4af5-bc6c-ca18879ba328' })
+    const response = await api.post('/order', {
+      table: Number(number)
+    })
 
-  const { signOut } = useContext(AuthContext)
+    //console.log(response.data);
+
+    navigation.navigate('Order', { number: number, order_id: response.data.id })
+
+    setNumber('');
+
+  }
+
+  function signOut(event: GestureResponderEvent): void {
+    throw new Error('Function not implemented.');
+  }
 
   return(
     <SafeAreaView style={styles.container}>
