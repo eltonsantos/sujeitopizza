@@ -14,6 +14,8 @@ app.use(router)
 
 app.use("/files", express.static(path.resolve(__dirname, "..", "tmp")))
 
+const PORT = 3333;
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if(err instanceof Error) {
     return res.status(400).json({
@@ -28,4 +30,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 })
 
-app.listen(3333, () => console.log("Server Online! 🚀"))
+app.listen(PORT, () => console.log(`Server Online na porta ${PORT}! 🚀`))

@@ -1,18 +1,18 @@
 import React, { useContext, useState }  from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, TextInput, StyleSheet, Button, GestureResponderEvent} from 'react-native'
+import { Text, SafeAreaView, TouchableOpacity, TextInput, StyleSheet, Button} from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { StackPramsList } from '../../routes/app.routes'
 
-import { AuthContext } from "../../contexts/AuthContext" 
-
 import { api } from '../../services/api'
+
+import { AuthContext } from "../../contexts/AuthContext" 
 
 export default function Dashboard(){
 
+  const { signOut } = useContext(AuthContext)
   const navigation = useNavigation<NativeStackNavigationProp<StackPramsList>>();
-
   const [number, setNumber] = useState('');
  
   async function openOrder(){
@@ -24,7 +24,7 @@ export default function Dashboard(){
       table: Number(number)
     })
 
-    //console.log(response.data);
+    console.log(response.data);
 
     navigation.navigate('Order', { number: number, order_id: response.data.id })
 
@@ -32,33 +32,32 @@ export default function Dashboard(){
 
   }
 
-  function signOut(event: GestureResponderEvent): void {
-    throw new Error('Function not implemented.');
-  }
+  //function signOut(event: GestureResponderEvent): void {
+  //  throw new Error('Function not implemented.');
+  //}
 
   return(
+    
     <SafeAreaView style={styles.container}>
+      <Button
+        title='Sair do app'
+        onPress={signOut}
+      />
 
-        <Button
-          title='Sair do app'
-          onPress={signOut}
-        />
-        
-        <Text style={styles.title}>Novo pedido</Text>
+      <Text style={styles.title}>Novo pedido</Text>
 
-        <TextInput
-          placeholder="Numero da mesa"
-          placeholderTextColor="#F0F0F0"
-          style={styles.input}
-          keyboardType="numeric"
-          value={number}
-          onChangeText={setNumber}
-        />
+      <TextInput
+        placeholder="Numero da mesa"
+        placeholderTextColor="#F0F0F0"
+        style={styles.input}
+        keyboardType="numeric"
+        value={number}
+        onChangeText={setNumber}
+      />
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Abrir mesa</Text>
-        </TouchableOpacity>
-
+      <TouchableOpacity style={styles.button} onPress={openOrder}>
+        <Text style={styles.buttonText}>Abrir mesa</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   )
 }

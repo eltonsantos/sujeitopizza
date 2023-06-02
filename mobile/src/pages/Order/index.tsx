@@ -18,7 +18,7 @@ import { ListItem } from '../../components/ListItem'
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { StackPramsList }  from '../../routes/app.routes'
-
+ 
 type RouteDetailParams = {
   Order:{
     number: string | number;
